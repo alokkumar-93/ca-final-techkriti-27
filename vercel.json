@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd \"ca-techkriti'27\" && npm run build",
+  "outputDirectory": "ca-techkriti'27/dist",
+  "installCommand": "cd \"ca-techkriti'27\" && npm install",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
