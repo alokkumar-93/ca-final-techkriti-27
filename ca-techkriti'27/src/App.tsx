@@ -12,6 +12,7 @@ import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
 import { CaRegistrationModal } from './components/CaRegistrationModal';
 import { CaRegisterFormModal } from './components/CaRegisterFormModal';
+import { CaLoginModal } from './components/CaLoginModal';
 import { CaDashboard } from './components/CaDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { InteractiveGlowBackground } from './components/InteractiveGlowBackground';
@@ -56,6 +57,7 @@ export function App() {
   const [adminPasscode, setAdminPasscode] = useState('');
   const [passcodeError, setPasscodeError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   // User Profile state with localStorage persistence
   const [userProfile, setUserProfile] = useState<UserProfile | null>(() => {
@@ -76,6 +78,32 @@ export function App() {
     } else {
       setIsAuthModalOpen(true);
     }
+  };
+
+  const handleOpenLogin = () => {
+    if (userProfile && userProfile.isRegistered) {
+      setViewingDashboard(true);
+    } else {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  const handleLoginSuccess = (_email: string, _name: string) => {
+    setIsLoginModalOpen(false);
+    // Check if user has a saved profile in localStorage
+    const saved = localStorage.getItem('techkriti_ca_user_profile');
+    if (saved) {
+      try {
+        const profile = JSON.parse(saved);
+        setUserProfile(profile);
+        setViewingDashboard(true);
+        return;
+      } catch {
+        // fall through to registration
+      }
+    }
+    // If no saved profile, open registration form with pre-filled data
+    setIsRegisterFormOpen(true);
   };
 
   const handleGoogleSuccess = (_email: string, _name: string) => {
@@ -242,12 +270,13 @@ export function App() {
         activeTab={activeTab} 
         onTabChange={handleTabChange} 
         onSignUpClick={handleOpenAuth} 
+        onLoginClick={handleOpenLogin}
         userProfile={userProfile}
       />
 
       {/* 1. HERO SECTION */}
       <div id="home">
-        <HeroSection onCtaClick={handleOpenAuth} />
+        <HeroSection onCtaClick={handleOpenAuth} onLoginClick={handleOpenLogin} />
       </div>
 
       {/* Glassy Section Divider 1 */}
@@ -327,7 +356,7 @@ export function App() {
 
       {/* Contact & Footer Section */}
       <div id="contact" style={{ position: 'relative', zIndex: 5 }}>
-        <ContactSection onTabChange={handleTabChange} onSignUpClick={handleOpenAuth} />
+        <ContactSection onTabChange={handleTabChange} onSignUpClick={handleOpenAuth} onLoginClick={handleOpenLogin} />
       </div>
 
       {/* Floating Right Dock Bar */}
@@ -335,6 +364,7 @@ export function App() {
         activeTab={activeTab}
         onTabChange={handleTabChange}
         onSignUpClick={handleOpenAuth}
+        onLoginClick={handleOpenLogin}
       />
 
       {/* Sign Up / OAuth Google Modal */}
@@ -349,6 +379,14 @@ export function App() {
         isOpen={isRegisterFormOpen}
         onClose={() => setIsRegisterFormOpen(false)}
         onSubmitProfile={handleProfileSubmitted}
+      />
+
+      {/* Login Modal for returning users */}
+      <CaLoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onLoginSuccess={handleLoginSuccess}
+        onSwitchToRegister={handleOpenAuth}
       />
 
       {/* Admin Login Modal (Matching Reference Screenshot 1:1) */}
@@ -511,11 +549,13 @@ function NavbarSticky({
   activeTab,
   onTabChange,
   onSignUpClick,
+  onLoginClick,
   userProfile
 }: {
   activeTab: string;
   onTabChange: (t: string) => void;
   onSignUpClick: () => void;
+  onLoginClick: () => void;
   userProfile: UserProfile | null;
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -617,8 +657,29 @@ function NavbarSticky({
           })}
         </div>
 
-        {/* Desktop Register / Dashboard CTA Button */}
-        <div className="hidden md:block">
+        {/* Desktop Login + Register / Dashboard CTA Buttons */}
+        <div className="hidden md:flex" style={{ alignItems: 'center', gap: '0.5rem' }}>
+          {!userProfile && (
+            <button 
+              onClick={onLoginClick}
+              className="font-tech-sub hover:scale-105 active:scale-95"
+              style={{ 
+                background: 'rgba(255, 255, 255, 0.08)', 
+                border: '1px solid rgba(56, 189, 248, 0.4)', 
+                borderRadius: '9999px', 
+                padding: '0.55rem 1.35rem', 
+                fontSize: '0.8rem', 
+                fontWeight: 800, 
+                letterSpacing: '0.12em',
+                cursor: 'pointer', 
+                color: '#ffffff', 
+                backdropFilter: 'blur(8px)',
+                transition: 'all 0.25s ease'
+              }}
+            >
+              LOGIN
+            </button>
+          )}
           <button 
             onClick={onSignUpClick}
             className="font-tech-sub hover:scale-105 active:scale-95"
@@ -705,6 +766,36 @@ function NavbarSticky({
               );
             })}
             
+            {/* Mobile Login Button */}
+            {!userProfile && (
+              <button
+                onClick={() => {
+                  onLoginClick();
+                  setMobileMenuOpen(false);
+                }}
+                className="animate-slide-in-top font-tech-sub"
+                style={{
+                  animationDelay: `${MOBILE_NAV_TABS.length * 0.05}s`,
+                  marginTop: '0.5rem',
+                  width: '100%',
+                  padding: '0.85rem',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(56, 189, 248, 0.4)',
+                  color: '#ffffff',
+                  fontWeight: 800,
+                  fontSize: '0.9rem',
+                  letterSpacing: '0.12em',
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  backdropFilter: 'blur(8px)'
+                }}
+              >
+                LOGIN
+              </button>
+            )}
+
+            {/* Mobile Register / Dashboard Button */}
             <button
               onClick={() => {
                 onSignUpClick();
@@ -712,8 +803,8 @@ function NavbarSticky({
               }}
               className="animate-slide-in-top font-tech-sub"
               style={{
-                animationDelay: `${MOBILE_NAV_TABS.length * 0.05}s`,
-                marginTop: '0.5rem',
+                animationDelay: `${(MOBILE_NAV_TABS.length + 1) * 0.05}s`,
+                marginTop: userProfile ? '0.5rem' : '0.25rem',
                 width: '100%',
                 padding: '0.85rem',
                 borderRadius: '12px',

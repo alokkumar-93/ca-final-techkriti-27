@@ -1,13 +1,14 @@
 import React from 'react';
 import { BackgroundVideo } from './BackgroundVideo';
 import { CaLogo } from './CaLogo';
-import { ArrowRight, Trophy, Users, GraduationCap, Flame } from 'lucide-react';
+import { ArrowRight, Trophy, Users, GraduationCap, Flame, LogIn } from 'lucide-react';
 
 interface HeroSectionProps {
   onCtaClick?: () => void;
+  onLoginClick?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick, onLoginClick }) => {
   return (
     <section 
       style={{
@@ -103,8 +104,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
           Represent your college at Asia's largest technical & entrepreneurial festival. Lead campus contingents, gain real marketing experience, and win rewards backed by <span style={{ whiteSpace: 'nowrap' }}>IIT Kanpur.</span>
         </p>
 
-        {/* Centered Join Now Button in Blue & Cyan Theme */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
+        {/* Centered CTA Buttons */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
           <button
             onClick={onCtaClick}
             className="font-tech-sub"
@@ -135,6 +136,42 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onCtaClick }) => {
           >
             JOIN NOW
             <ArrowRight size={20} />
+          </button>
+
+          <button
+            onClick={onLoginClick}
+            className="font-tech-sub"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.6rem',
+              padding: '1rem 2rem',
+              borderRadius: '9999px',
+              fontSize: '1rem',
+              fontWeight: 800,
+              color: '#ffffff',
+              background: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(56, 189, 248, 0.45)',
+              boxShadow: '0 0 15px rgba(56, 189, 248, 0.2), 0 8px 20px rgba(0, 0, 0, 0.4)',
+              cursor: 'pointer',
+              letterSpacing: '0.08em',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px) scale(1.03)';
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(56, 189, 248, 0.45), 0 12px 25px rgba(0, 0, 0, 0.6)';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.boxShadow = '0 0 15px rgba(56, 189, 248, 0.2), 0 8px 20px rgba(0, 0, 0, 0.4)';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+            }}
+          >
+            <LogIn size={18} />
+            LOGIN
           </button>
         </div>
 

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Mail, Phone, MapPin, ArrowRight, ChevronRight, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, ChevronRight, Globe, LogIn } from 'lucide-react';
 import { TechkritiLogo } from './TechkritiLogo';
 
 interface ContactSectionProps {
   onTabChange?: (tabId: string) => void;
   onSignUpClick?: () => void;
+  onLoginClick?: () => void;
 }
 
 const InstagramIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
@@ -23,7 +24,7 @@ const LinkedinIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
   </svg>
 );
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ onTabChange, onSignUpClick }) => {
+export const ContactSection: React.FC<ContactSectionProps> = ({ onTabChange, onSignUpClick, onLoginClick }) => {
   return (
     <footer 
       style={{
@@ -205,6 +206,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onTabChange, onS
                 <span>{link.label}</span>
               </button>
             ))}
+            {/* Login Quick Link */}
+            <button
+              onClick={() => onLoginClick?.()}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#38bdf8',
+                fontSize: '0.875rem',
+                textAlign: 'left',
+                cursor: 'pointer',
+                padding: 0,
+                transition: 'color 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                fontWeight: 600
+              }}
+              className="hover:text-blue-300"
+            >
+              <LogIn size={14} />
+              <span>Login</span>
+            </button>
           </div>
         </div>
 

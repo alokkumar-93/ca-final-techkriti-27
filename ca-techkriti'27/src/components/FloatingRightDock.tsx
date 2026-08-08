@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Home, Info, Award, CheckSquare, Gift, Camera, BarChart3, HelpCircle, LogIn, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, Info, Award, CheckSquare, Gift, Camera, BarChart3, HelpCircle, LogIn, KeyRound, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface FloatingRightDockProps {
   activeTab: string;
   onTabChange: (tabId: string) => void;
   onSignUpClick: () => void;
+  onLoginClick?: () => void;
 }
 
 export const FloatingRightDock: React.FC<FloatingRightDockProps> = ({
   activeTab,
   onTabChange,
-  onSignUpClick
+  onSignUpClick,
+  onLoginClick
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -184,6 +186,60 @@ export const FloatingRightDock: React.FC<FloatingRightDockProps> = ({
 
       {/* Divider */}
       <div style={{ width: '20px', height: '1px', background: 'rgba(255, 255, 255, 0.15)', margin: '0.2rem 0' }} />
+
+      {/* Login Quick Button */}
+      {onLoginClick && (
+        <div className="relative group">
+          <button
+            onClick={() => {
+              onLoginClick();
+              if (isMobileScreen) setIsMobileOpen(false);
+            }}
+            onMouseEnter={() => setHoveredId('login')}
+            onMouseLeave={() => setHoveredId(null)}
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(255, 255, 255, 0.06)',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              color: '#ffffff',
+              transition: 'all 0.25s ease'
+            }}
+            aria-label="Login"
+          >
+            <KeyRound size={18} color="#38bdf8" />
+          </button>
+
+          {hoveredId === 'login' && (
+            <div
+              style={{
+                position: 'absolute',
+                right: '48px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                whiteSpace: 'nowrap',
+                padding: '0.35rem 0.75rem',
+                borderRadius: '8px',
+                background: 'rgba(5, 12, 25, 0.95)',
+                border: '1px solid rgba(56, 189, 248, 0.4)',
+                color: '#ffffff',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.6), 0 0 10px rgba(56, 189, 248, 0.2)',
+                pointerEvents: 'none',
+                animation: 'fadeIn 0.2s ease-out'
+              }}
+              className="font-tech-sub"
+            >
+              LOGIN
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Register / Sign In Quick Button */}
       <div className="relative group">
