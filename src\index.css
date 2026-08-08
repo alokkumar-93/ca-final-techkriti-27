@@ -1,0 +1,268 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #05030b;
+    color: hsl(40 6% 95%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Custom Typography Classes matching original Techkriti Branding */
+.font-tech-heading {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-tech-sub {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* High-Performance Hardware-Accelerated Liquid Glassmorphism System */
+.liquid-glass {
+  background: rgba(8, 14, 28, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: transform;
+}
+
+/* Glassy Divider Line */
+.glassy-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(56, 189, 248, 0.4) 50%, transparent 100%);
+  margin: 2rem 0;
+  position: relative;
+  z-index: 5;
+}
+
+/* Optimized Lightweight Ambient Color Auras (Blue Theme) */
+@keyframes auraPulse {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(10px, -10px, 0) scale(1.08);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+}
+
+.spreading-aura {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+  animation: auraPulse 8s ease-in-out infinite;
+  will-change: transform;
+  contain: strict;
+}
+
+/* Section Fade In */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 15px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Slide in from right for top navbar buttons (Desktop) */
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(30px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Slide in from top for mobile buttons & drawers */
+@keyframes slideInTop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -18px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-slide-in-top {
+  animation: slideInTop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Slick Portal Tab Transition & Button Micro-Animations */
+@keyframes portalTabPop {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) scale(0.96) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) scale(1) translateY(0);
+  }
+}
+
+.animate-portal-tab {
+  animation: portalTabPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Glassy Glow Card Pulse */
+.glass-glow-card {
+  background: linear-gradient(145deg, rgba(8, 20, 42, 0.85), rgba(5, 10, 24, 0.95)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.glass-glow-card:hover {
+  transform: translateY(-4px) scale(1.01) !important;
+  border-color: rgba(56, 189, 248, 0.6) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.35) !important;
+}
+
+/* Fail-Safe 60fps Hardware-Accelerated 3D Scroll Reveal Classes */
+.reveal-3d-left {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(-25deg) translate3d(-70px, 25px, -50px) scale(0.92);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease-out;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.reveal-3d-right {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(25deg) translate3d(70px, 25px, -50px) scale(0.92);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease-out;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.reveal-3d-pop {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(18deg) translate3d(0, 40px, -70px) scale(0.9);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease-out;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Active state triggered when scrolled into viewport */
+.reveal-3d-left.is-visible,
+.reveal-3d-right.is-visible,
+.reveal-3d-pop.is-visible,
+.reveal-3d-left.active,
+.reveal-3d-right.active,
+.reveal-3d-pop.active {
+  opacity: 1 !important;
+  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translate3d(0, 0, 0) scale(1) !important;
+}
+
+/* Original 3D Card Flip Utilities */
+.flip-card {
+  perspective: 1000px;
+  background: transparent;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 355px;
+  text-align: left;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  will-change: transform;
+}
+
+/* On Desktop Devices with Mouse: flip on hover */
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+/* On Explicit Tap / Click (Mobile Phones & Touch): flip when .is-flipped is active */
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translate3d(0, 0, 0);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Ultra Mobile & Low-End Performance Optimizations (< 640px) */
+@media (max-width: 640px) {
+  .liquid-glass {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(8, 14, 28, 0.95);
+  }
+  .spreading-aura {
+    filter: blur(25px);
+    opacity: 0.45;
+  }
+  /* Lightweight 2D transitions for ultra-smooth 60fps scrolling on budget phones */
+  .reveal-3d-left, .reveal-3d-right, .reveal-3d-pop {
+    transform: translate3d(0, 20px, 0) scale(0.96);
+    transition: transform 0.45s ease-out, opacity 0.45s ease-out;
+  }
+  .reveal-3d-left.is-visible,
+  .reveal-3d-right.is-visible,
+  .reveal-3d-pop.is-visible {
+    transform: translate3d(0, 0, 0) scale(1) !important;
+  }
+}
